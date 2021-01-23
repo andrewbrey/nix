@@ -1,0 +1,19 @@
+version: "2.4"
+
+volumes:
+  nix-node_modules:
+
+services:
+  nix:
+    container_name: nix
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace
+      - nix-node_modules:/workspace/node_modules
+    ports:
+      - "9090:9090"
+    user: node
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 60000; do :; done"

@@ -1,0 +1,5 @@
+.devcontainer/
+node_modules/
+extensions/
+build/
+.out/

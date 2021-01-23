@@ -1,0 +1,33 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    if: github.event_name == 'workflow_dispatch' && contains(toJson(github.event.commits), '[skip ci]') == false
+    strategy:
+      fail-fast: false
+      matrix:
+        command:
+          - firefox
+          - chrome
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - name: install
+        run: yarn install
+      - name: build
+        run: yarn build
+      - name: release
+        run: 'yarn release:${{ matrix.command }}'
+        env:
+          EXTENSION_ID: '${{ secrets.EXTENSION_ID }}'
+          CLIENT_ID: '${{ secrets.CLIENT_ID }}'
+          CLIENT_SECRET: '${{ secrets.CLIENT_SECRET }}'
+          REFRESH_TOKEN: '${{ secrets.REFRESH_TOKEN }}'
+          WEB_EXT_API_KEY: '${{ secrets.WEB_EXT_API_KEY }}'
+          WEB_EXT_API_SECRET: '${{ secrets.WEB_EXT_API_SECRET }}'

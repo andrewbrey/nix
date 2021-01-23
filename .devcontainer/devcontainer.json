@@ -1,0 +1,101 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.154.0/containers/docker-from-docker-compose
+{
+	"name": "nix",
+  "dockerComposeFile": "docker-compose.yml",
+	"service": "nix",
+	"workspaceFolder": "/workspace",
+	"postCreateCommand": "sudo mkdir -p node_modules && sudo chown -R node:node node_modules",
+	"extensions": [
+		"bradlc.vscode-tailwindcss",
+		"editorconfig.editorconfig",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"meganrogge.template-string-converter",
+		"gruntfuggly.todo-tree"
+	],
+	"settings": {
+    /********************
+     * Language Specific *
+     ********************/
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": false
+      },
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    /*************
+     * Extensions *
+     *************/
+    "color-highlight.markRuler": false,
+		"color-highlight.markerType": "background",
+    "eslint.run": "onSave",
+    "todo-tree.tree.autoRefresh": true,
+    "todo-tree.general.tags": [
+      "TODO",
+      "FIXME",
+      "IDEA",
+      "COMMENT"
+    ],
+    "todo-tree.highlights.defaultHighlight": {
+      "background": "#DBDD40",
+      "iconColour": "#DBDD40",
+      "foreground": "#000000",
+      "type": "text-and-comment"
+    },
+    "todo-tree.highlights.customHighlight": {
+      "FIXME": {
+        "background": "#942A00",
+        "iconColour": "#942A00",
+        "foreground": "#FFFFFF",
+        "type": "text-and-comment"
+      },
+      "IDEA": {
+        "background": "#254E53",
+        "iconColour": "#254E53",
+        "foreground": "#FFFFFF",
+        "type": "text-and-comment"
+      },
+      "COMMENT": {
+        "background": "#FFFFFF",
+        "iconColour": "#FFFFFF",
+        "foreground": "#000000",
+        "type": "text-and-comment"
+      }
+    },
+    "todo-tree.filtering.excludeGlobs": [
+      "**/node_modules/**/*",
+      "**/*.md"
+    ],
+    "todo-tree.tree.expanded": true,
+    "todo-tree.tree.flat": true,
+    "todo-tree.tree.grouped": false,
+    "todo-tree.tree.showCountsInTree": true,
+    "todo-tree.general.statusBar": "top three",
+    "todo-tree.general.statusBarClickBehaviour": "reveal",
+    "tslint.configFile": "tslint.json",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    /**************
+     * Application *
+     **************/
+    "editor.codeActionsOnSave": {
+      "source.fixAll.tslint": true
+    },
+    "search.exclude": {
+      "**/node_modules/**/*": true,
+    }
+  }
+}
