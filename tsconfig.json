@@ -22,7 +22,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true,
 		"paths": {
-			"@global/env": ["src/scripts/global/environment"]
+			"@/*": ["src/scripts/*"],
+			"@env": ["src/scripts/env/environment"]
 		}
 	},
 	"include": ["src/**/*.ts"],
