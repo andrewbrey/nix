@@ -21,6 +21,7 @@
 		"useDefineForClassFields": true,
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true,
+		"esModuleInterop": true,
 		"paths": {
 			"@/*": ["src/scripts/*"],
 			"@env": ["src/scripts/env/environment"]

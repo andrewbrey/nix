@@ -1,10 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const webpack = require('webpack');
-const chalk = require('chalk');
-const { join } = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+import { join } from 'path';
+import chalk from 'chalk';
+import webpack from 'webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import ExtensionReloader from 'webpack-extension-reloader';
 
 const isDev = process.env.NODE_ENV === 'development';
 const assetPath = process.env.ASSET_PATH || '/';
@@ -19,14 +21,13 @@ console.log(
 	)
 );
 
-module.exports = {
+export default {
 	mode: isDev ? 'development' : 'production',
-	devtool: 'source-map',
+	devtool: false, // Can't use sourcemaps with the extension reloader :/
 	target: 'web',
 	resolve: {
 		alias: {
 			'@env': join(srcPath, 'env', isDev ? 'environment.dev' : 'environment'),
-			'react-dom': '@hot-loader/react-dom',
 		},
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
 	},
@@ -88,6 +89,15 @@ module.exports = {
 		],
 	},
 	plugins: [
+		isDev &&
+			new ExtensionReloader({
+				port: 9090,
+				entries: {
+					background: 'background',
+					extensionPage: ['popup'],
+				},
+				reloadPage: false,
+			}),
 		new webpack.ProgressPlugin(),
 		new webpack.EnvironmentPlugin(['NODE_ENV']),
 		new MiniCssExtractPlugin({
@@ -117,21 +127,7 @@ module.exports = {
 			],
 		}),
 		new webpack.HotModuleReplacementPlugin(),
-	],
-	devServer: {
-		https: false,
-		hot: true,
-		injectClient: false,
-		writeToDisk: true,
-		port: 9090,
-		clientLogLevel: 'silent',
-		contentBase: outputPath,
-		headers: {
-			'Access-Control-Allow-Origin': '*',
-		},
-		host: '0.0.0.0',
-		disableHostCheck: true,
-	},
+	].filter(Boolean),
 	optimization: {
 		minimize: false,
 	},
