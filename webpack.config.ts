@@ -121,6 +121,11 @@ export default {
 						MANIFEST.version = process.env.npm_package_version;
 
 						delete MANIFEST.$schema;
+						if (!isDev) {
+							Object.keys(MANIFEST.commands)
+								.filter(k => k.startsWith('dev:'))
+								.forEach(k => delete MANIFEST.commands[k]);
+						}
 
 						return Buffer.from(JSON.stringify(MANIFEST, null, 2));
 					},

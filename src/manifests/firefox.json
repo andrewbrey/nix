@@ -26,5 +26,12 @@
 		},
 		"default_title": "Nix",
 		"default_popup": "popup.html"
+	},
+	"commands": {
+		"dev:popup": {
+			"suggested_key": {
+				"default": "Alt+N"
+			}
+		}
 	}
 }
