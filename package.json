@@ -10,6 +10,7 @@
 	},
 	"bugs": "https://github.com/andrewbrey/nix/issues",
 	"scripts": {
+		"postinstall": "touch node_modules/.gitkeep",
 		"lint": "eslint . --fix",
 		"test": "jest --passWithNoTests",
 		"clean:chrome": "rimraf extensions/chrome/*",
