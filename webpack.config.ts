@@ -120,6 +120,8 @@ export default {
 						const MANIFEST = JSON.parse(content.toString());
 						MANIFEST.version = process.env.npm_package_version;
 
+						delete MANIFEST.$schema;
+
 						return Buffer.from(JSON.stringify(MANIFEST, null, 2));
 					},
 					to: 'manifest.json',
