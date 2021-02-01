@@ -14,7 +14,8 @@
 	},
 	"default_locale": "en",
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["background.js"],
+		"persistent": true
 	},
 	"permissions": ["storage"],
 	"browser_action": {
@@ -28,10 +29,17 @@
 		"default_popup": "popup.html"
 	},
 	"commands": {
-		"dev:popup": {
+		"_execute_browser_action": {
 			"suggested_key": {
-				"default": "Alt+N"
-			}
+				"default": "Shift+Alt+N"
+			},
+			"description": "Open Nix"
+		},
+		"toggle_mute": {
+			"suggested_key": {
+				"default": "Shift+Alt+Down"
+			},
+			"description": "Toggle Nix Playback"
 		}
 	}
 }
