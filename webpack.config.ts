@@ -7,6 +7,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ExtensionReloader from 'webpack-extension-reloader';
+import { readJsonSync } from 'fs-extra';
+import { merge } from 'lodash';
 
 const isDev = process.env.NODE_ENV === 'development';
 const assetPath = process.env.ASSET_PATH || '/';
@@ -115,9 +117,13 @@ export default {
 				{ from: 'src/assets', to: 'assets' },
 				{ from: 'src/_locales', to: '_locales' },
 				{
-					from: `src/manifests/${process.env.TARGET}.json`,
+					from: 'src/manifests/default.json',
 					transform(content) {
 						const MANIFEST = JSON.parse(content.toString());
+						const TARGET_OVERRIDES = readJsonSync(`src/manifests/${process.env.TARGET}.json`);
+
+						merge(MANIFEST, TARGET_OVERRIDES);
+
 						MANIFEST.version = process.env.npm_package_version;
 
 						delete MANIFEST.$schema;

@@ -30,7 +30,7 @@ const SoundButton = ({ name, icon, playing }: SoundButtonProps): React.ReactElem
 			})}
 			onClick={toggleSound}
 		>
-			Play {name} {icon}
+			{currentlyPlaying ? 'Stop' : 'Play'} {name} {icon}
 		</button>
 	);
 };
