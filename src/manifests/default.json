@@ -34,12 +34,6 @@
 				"default": "Shift+Alt+N"
 			},
 			"description": "Open Nix"
-		},
-		"toggle_mute": {
-			"suggested_key": {
-				"default": "Shift+Alt+Down"
-			},
-			"description": "Toggle Nix Playback"
 		}
 	}
 }

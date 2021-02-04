@@ -23,7 +23,6 @@
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"paths": {
-			"@/*": ["src/scripts/*"],
 			"@env": ["src/scripts/env/environment"]
 		}
 	},

@@ -34,7 +34,7 @@ export default {
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
 	},
 	entry: {
-		background: `${srcPath}/background.ts`,
+		background: `${srcPath}/background/index.ts`,
 		popup: `${srcPath}/popup/index.tsx`,
 	},
 	output: {

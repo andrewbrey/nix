@@ -77,7 +77,8 @@
       }
     },
     "todo-tree.filtering.excludeGlobs": [
-      "**/node_modules/**/*",
+			"**/node_modules/**/*",
+			"**/extensions/**",
       "**/*.md"
     ],
     "todo-tree.tree.expanded": true,
@@ -96,6 +97,7 @@
     },
     "search.exclude": {
       "**/node_modules/**/*": true,
+      "**/extensions/**/*": true,
     }
   }
 }

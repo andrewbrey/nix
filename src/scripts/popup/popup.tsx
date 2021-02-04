@@ -1,21 +1,22 @@
+import cn from 'classnames';
 import * as React from 'react';
 import { browser } from 'webextension-polyfill-ts';
-import { NixCommand, NixMessage, NixSoundConfig } from '../types';
+import { NixMessageKey, NixMessage, NixSoundConfig } from '../types';
 import { noop } from '../util/shared';
-import cn from 'classnames';
+import { Bonfire } from './components/sound-icons';
 
-interface SoundButtonProps {
+interface SoundButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 	name: string;
-	icon: string;
+	displayName: string;
 	playing: boolean;
 }
 
-const SoundButton = ({ name, icon, playing }: SoundButtonProps): React.ReactElement => {
+const SoundButton: React.FC<SoundButtonProps> = ({ name, displayName, playing }: SoundButtonProps) => {
 	const [currentlyPlaying, setCurrentlyPlaying] = React.useState(playing);
 
 	const toggleSound = () => {
 		const message: NixMessage = {
-			nixCommand: currentlyPlaying ? NixCommand.SOUND_STOP : NixCommand.SOUND_PLAY,
+			message: currentlyPlaying ? NixMessageKey.SOUND_STOP_NAMED : NixMessageKey.SOUND_PLAY_NAMED,
 			payload: name,
 		};
 
@@ -30,7 +31,7 @@ const SoundButton = ({ name, icon, playing }: SoundButtonProps): React.ReactElem
 			})}
 			onClick={toggleSound}
 		>
-			{currentlyPlaying ? 'Stop' : 'Play'} {name} {icon}
+			{currentlyPlaying ? 'Stop' : 'Play'} {displayName} <Bonfire className="w-10 h-10" />
 		</button>
 	);
 };
@@ -40,7 +41,7 @@ export const Popup = (): React.ReactElement => {
 	const [muted, setMuted] = React.useState(false);
 
 	React.useEffect(() => {
-		const message: NixMessage = { nixCommand: NixCommand.SOUND_LIST };
+		const message: NixMessage = { message: NixMessageKey.SOUND_LIST_ALL };
 
 		browser.runtime
 			.sendMessage(message)
@@ -49,14 +50,16 @@ export const Popup = (): React.ReactElement => {
 	}, []);
 
 	React.useEffect(() => {
-		const message: NixMessage = { nixCommand: NixCommand.GLOBAL_IS_MUTED };
+		const storageChangeHandler = (...args) => {
+			console.log(args);
+			browser.storage.local.get(null).then(console.log);
+			setMuted(!muted);
+		};
 
-		// TODO this gets out of date, need to listen for the change made from global hotkey...
-		browser.runtime
-			.sendMessage(message)
-			.then(globalIsMuted => setMuted(globalIsMuted))
-			.catch(noop);
-	}, []);
+		browser.storage.onChanged.addListener(storageChangeHandler);
+
+		return () => browser.storage.onChanged.removeListener(storageChangeHandler);
+	}, [muted]);
 
 	return (
 		<div className="w-80">
@@ -66,7 +69,7 @@ export const Popup = (): React.ReactElement => {
 			</p>
 			<div className="flex flex-col space-y-2">
 				{soundList.map(s => (
-					<SoundButton key={s.name} name={s.name} icon={s.icon} playing={s.playing} />
+					<SoundButton key={s.name} name={s.name} displayName={s.displayName} playing={s.playing} />
 				))}
 			</div>
 		</div>

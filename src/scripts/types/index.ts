@@ -1,41 +1,46 @@
 import { Howl } from 'howler';
 
 export type NixSound =
-	| 'bonfire'
+	| 'fire'
 	| 'brook'
-	| 'cocktail_voices'
+	| 'party_chatter'
 	| 'fan'
 	| 'rain_pouring'
-	| 'rain'
-	| 'shore'
-	| 'stream'
-	| 'thunder_close'
+	| 'rain_calm'
+	| 'beach_shore'
+	| 'rushing_stream'
+	| 'thunder_nearby'
 	| 'thunder_distant'
-	| 'waves_large'
-	| 'waves_ocean';
+	| 'waves_rolling'
+	| 'waves_calm';
 
 export interface NixSoundConfig {
 	name: string;
-	icon: string;
+	displayName: string;
 	file: string;
 	howl: Howl | null;
 	playing: boolean;
 }
 
-export interface NixState {
-	muted: boolean;
-	sounds: Record<NixSound, NixSoundConfig>;
-}
+export type AvailableNixSounds = Record<NixSound, NixSoundConfig>;
 
-export const enum NixCommand {
-	SOUND_PLAY = 'sound:play',
-	SOUND_STOP = 'sound:stop',
-	SOUND_LIST = 'sound:list',
-	GLOBAL_TOGGLE_MUTE = 'global:toggle_mute',
-	GLOBAL_IS_MUTED = 'global:is_muted',
+export const enum NixMessageKey {
+	SOUND_LIST_ALL = 'sound:list_all',
+	SOUND_PLAY_NAMED = 'sound:play_named',
+	SOUND_STOP_NAMED = 'sound:stop_named',
+	SOUND_STOP_ALL = 'sound:stop_all',
 }
 
 export interface NixMessage {
-	nixCommand: NixCommand;
+	message: NixMessageKey;
 	payload?: unknown;
+}
+
+export interface NixActiveSound {
+	sound: NixSound;
+	level: number;
+}
+
+export interface NixState {
+	active: NixActiveSound[];
 }
