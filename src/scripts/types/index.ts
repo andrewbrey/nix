@@ -15,7 +15,7 @@ export type NixSound =
 	| 'waves_calm';
 
 export interface NixSoundConfig {
-	name: string;
+	name: NixSound;
 	displayName: string;
 	file: string;
 	howl: Howl | null;
@@ -26,6 +26,7 @@ export type AvailableNixSounds = Record<NixSound, NixSoundConfig>;
 
 export const enum NixMessageKey {
 	SOUND_LIST_ALL = 'sound:list_all',
+	SOUND_LIST_ACTIVE = 'sound:list_active',
 	SOUND_PLAY_NAMED = 'sound:play_named',
 	SOUND_STOP_NAMED = 'sound:stop_named',
 	SOUND_STOP_ALL = 'sound:stop_all',
@@ -36,11 +37,11 @@ export interface NixMessage {
 	payload?: unknown;
 }
 
-export interface NixActiveSound {
+export interface NixSelectedSound {
 	sound: NixSound;
-	level: number;
+	level: 20 | 40 | 60 | 80 | 100;
 }
 
 export interface NixState {
-	active: NixActiveSound[];
+	selectedSounds: NixSelectedSound[];
 }

@@ -1,32 +1,40 @@
 import { Howl, Howler } from 'howler';
-import { Runtime } from 'webextension-polyfill-ts';
-import { NixMessage, NixMessageKey, NixSound, NixSoundConfig } from '../../types';
+import { browser, Runtime } from 'webextension-polyfill-ts';
+import { NixMessage, NixMessageKey, NixSound, NixSoundConfig, NixState } from '../../types';
 import { stopNixSound } from '../../util/howler';
+import { NIX_STATE_KEY } from '../../util/shared';
 import { allSounds } from '../config';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function onMessage(runtimeMsg: unknown, _sender: Runtime.MessageSender): Promise<unknown> {
+export async function onMessage(runtimeMsg: unknown, _sender: Runtime.MessageSender): Promise<unknown> {
 	const { message, payload } = runtimeMsg as NixMessage;
 
 	switch (message as NixMessageKey) {
 		case NixMessageKey.SOUND_LIST_ALL: {
-			return Promise.resolve(
-				Object.keys(allSounds).map(
-					(k): NixSoundConfig => {
-						const sound = allSounds[k as NixSound];
+			const completeList = Object.keys(allSounds).map(
+				(k): NixSoundConfig => {
+					const sound = allSounds[k as NixSound];
 
-						return {
-							name: sound.name,
-							displayName: sound.displayName,
-							file: '',
-							howl: null,
-							playing: sound.playing,
-						} as NixSoundConfig;
-					}
-				)
+					return {
+						name: sound.name,
+						displayName: sound.displayName,
+						file: '',
+						howl: null,
+						playing: sound.playing,
+					} as NixSoundConfig;
+				}
 			);
+
+			return Promise.resolve(completeList);
+		}
+		case NixMessageKey.SOUND_LIST_ACTIVE: {
+			const nixState: NixState = (await browser.storage.local.get(NIX_STATE_KEY)) as NixState;
+
+			return Promise.resolve(nixState.selectedSounds);
 		}
 		case NixMessageKey.SOUND_PLAY_NAMED: {
+			Howler.mute(false);
+
 			const nixSound: NixSoundConfig = allSounds[payload as NixSound];
 
 			if (nixSound) {
@@ -36,12 +44,28 @@ export function onMessage(runtimeMsg: unknown, _sender: Runtime.MessageSender): 
 
 				nixSound.playing = true;
 				nixSound.howl.play();
+
+				const nixState: NixState = (await browser.storage.local.get(NIX_STATE_KEY)) as NixState;
+				const selected = nixState.selectedSounds.findIndex(s => s.sound === nixSound.name);
+				if (selected < 0) {
+					nixState.selectedSounds.push({ sound: nixSound.name, level: 100 });
+				}
+				await browser.storage.local.set(nixState);
 			}
 
 			break;
 		}
 		case NixMessageKey.SOUND_STOP_NAMED: {
-			stopNixSound(allSounds[payload as NixSound]);
+			const nixSound: NixSoundConfig = allSounds[payload as NixSound];
+
+			stopNixSound(nixSound);
+
+			const nixState: NixState = (await browser.storage.local.get(NIX_STATE_KEY)) as NixState;
+			const deselected = nixState.selectedSounds.findIndex(s => s.sound === nixSound.name);
+			if (deselected > -1) {
+				nixState.selectedSounds.splice(deselected, 1);
+			}
+			await browser.storage.local.set(nixState);
 			break;
 		}
 		case NixMessageKey.SOUND_STOP_ALL: {
