@@ -16,10 +16,33 @@ export const Popup: React.FC = () => {
 				</div>
 				<p className="text-base font-light">The simple noise mixer</p>
 			</div>
-			<div className="p-4 grid grid-cols-2 gap-2">
+			<div className="px-4 pt-4 pb-6 grid grid-cols-2 gap-2">
 				{availableSounds.map(s => (
 					<SoundButton key={s.name} name={s.name} displayName={s.displayName} />
 				))}
+			</div>
+			<div className="px-4 py-2 text-right text-sm font-normal italic text-gray-400">
+				<p>
+					<span>Buy </span>
+					<a
+						className="text-gray-500 font-medium hover:underline focus:outline-none focus:underline"
+						href="https://www.andrewbrey.com"
+						target="_blank"
+						rel="noopener"
+					>
+						me
+					</a>
+					<span> a </span>
+					<a
+						className="text-gray-500 font-medium hover:underline focus:outline-none focus:underline"
+						href="https://www.paypal.me/fluencyy"
+						target="_blank"
+						rel="noopener"
+					>
+						coffee?
+					</a>
+					<span> :)</span>
+				</p>
 			</div>
 		</div>
 	);

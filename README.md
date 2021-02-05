@@ -7,6 +7,13 @@
 
 `Nix` is the simple noise mixer browser extension - create your perfect mixture of sounds to help productivity and focus. It's simple, intuitive, and clean so that getting into a flow state is just a click away.
 
+**Screenshots**
+
+![Nix while playing](./docs/nix-playing.png)
+
+![Nix while paused](./docs/nix-paused.png)
+
+
 This extension is open source and licensed under the MIT license, so you can feel free to check out the source code at the extension home page or even contribute to make it better!
 
 Enjoy the extension and feel like saying thanks? Feel free to [buy me a coffee ☕](https://www.paypal.me/fluencyy)
