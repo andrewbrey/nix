@@ -9,9 +9,9 @@
 
 **Screenshots**
 
-![Nix while playing](./docs/nix-playing.png)
-
-![Nix while paused](./docs/nix-paused.png)
+Nix while playing          | Nix while paused
+:-------------------------:|:-------------------------:
+![Nix while playing](./docs/nix-playing.png) | ![Nix while paused](./docs/nix-paused.png)
 
 
 This extension is open source and licensed under the MIT license, so you can feel free to check out the source code at the extension home page or even contribute to make it better!
