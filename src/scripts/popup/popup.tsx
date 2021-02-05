@@ -1,80 +1,26 @@
 import * as React from 'react';
-import { browser } from 'webextension-polyfill-ts';
-import { NixMessage, NixMessageKey, NixSound } from '../types';
-import { noop } from '../util/shared';
+import { MixControlButton } from './components/mix-control-button';
+import { SoundButton } from './components/sound-button';
 import { useObservable } from './hooks/useObservable';
-import { allSounds, mostRecentMix, lastMixStopped } from './state';
-import cn from 'classnames';
+import { allSounds } from './store';
 
-export const Popup = (): React.ReactElement => {
+export const Popup: React.FC = () => {
 	const availableSounds = useObservable(allSounds, allSounds.initialValue());
-	const activeMix = useObservable(mostRecentMix, mostRecentMix.initialValue());
-	const activeMixStopped = useObservable(lastMixStopped, lastMixStopped.initialValue());
-
-	const playSound = (payload: NixSound) => {
-		browser.runtime
-			.sendMessage({ message: NixMessageKey.SOUND_PLAY_NAMED, payload } as NixMessage)
-			.then(noop)
-			.catch(noop);
-	};
-
-	const stopSound = (payload: NixSound) => {
-		browser.runtime
-			.sendMessage({ message: NixMessageKey.SOUND_STOP_NAMED, payload } as NixMessage)
-			.then(noop)
-			.catch(noop);
-	};
-
-	const stopAll = () => {
-		browser.runtime
-			.sendMessage({ message: NixMessageKey.SOUND_STOP_ALL } as NixMessage)
-			.then(noop)
-			.catch(noop);
-	};
-
-	const restartMix = () => {
-		activeMix.forEach(s =>
-			browser.runtime
-				.sendMessage({ message: NixMessageKey.SOUND_PLAY_NAMED, payload: s.sound } as NixMessage)
-				.then(noop)
-				.catch(console.error)
-		);
-	};
-
-	const canStop = React.useMemo<boolean>(() => {
-		return activeMix.length && !activeMixStopped;
-	}, [activeMix, activeMixStopped]);
-
-	const canRestart = React.useMemo<boolean>(() => {
-		return activeMix.length && activeMixStopped;
-	}, [activeMix, activeMixStopped]);
 
 	return (
-		<div className="w-80 grid grid-cols-2 gap-2 p-2">
-			{canStop ? (
-				<button className="col-span-2 px-4 py-2 bg-red-300 rounded" onClick={stopAll}>
-					stop all
-				</button>
-			) : null}
-			{canRestart ? (
-				<button className="col-span-2 px-4 py-2 bg-blue-300 rounded" onClick={restartMix}>
-					restart mix?
-				</button>
-			) : null}
-			{availableSounds.map(s => (
-				<button
-					key={s.name}
-					onClick={() => (activeMix.find(a => a.sound === s.name) ? stopSound(s.name) : playSound(s.name))}
-					className={cn('px-4 py-2 rounded ring-1 focus:outline-none', {
-						'bg-gray-100 ring-gray-100': !activeMix.find(a => a.sound === s.name),
-						'bg-green-200 text-white ring-green-300 text-green-800':
-							activeMix.find(a => a.sound === s.name) && !activeMixStopped,
-						'bg-gray-100 ring-blue-400 text-blue-800': activeMix.find(a => a.sound === s.name) && activeMixStopped,
-					})}
-				>
-					{s.displayName}
-				</button>
-			))}
+		<div className="w-80 bg-gray-100">
+			<div className="px-4 py-3 text-white bg-gradient-to-br from-blue-900 to-blue-800 border-b-4 border-blue-200">
+				<div className="flex justify-between items-center">
+					<h1 className="font-bold italic text-4xl">Nix</h1>
+					<MixControlButton />
+				</div>
+				<p className="text-base font-light">The simple noise mixer</p>
+			</div>
+			<div className="p-4 grid grid-cols-2 gap-2">
+				{availableSounds.map(s => (
+					<SoundButton key={s.name} name={s.name} displayName={s.displayName} />
+				))}
+			</div>
 		</div>
 	);
 };

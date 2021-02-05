@@ -1,10 +1,10 @@
 {
-  "appName": {
-    "message": "Nix",
-    "description": "The name of the application"
-  },
-  "appDescription": {
-    "message": "Lo-fi hip hop noise mixes to chill, relax, or study to",
-    "description": "The description of the application"
-  }
+	"appName": {
+		"message": "Nix",
+		"description": "The name of the application"
+	},
+	"appDescription": {
+		"message": "The simple noise mixer - create your perfect mixture of sounds to help productivity and focus.",
+		"description": "The description of the application"
+	}
 }

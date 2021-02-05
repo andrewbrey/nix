@@ -1,40 +1,49 @@
 import cn from 'classnames';
+import { isEmpty } from 'lodash';
 import * as React from 'react';
 import { browser } from 'webextension-polyfill-ts';
-import { NixMessage, NixMessageKey } from '../../types';
+import { NixMessage, NixMessageKey, NixSound } from '../../types';
+import { noop } from '../../util/shared';
+import { useObservable } from '../hooks/useObservable';
+import { lastMixStopped, mostRecentMix } from '../store';
 
 interface SoundButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-	name: string;
+	name: NixSound;
 	displayName: string;
-	selected: boolean;
-	playing: boolean;
 }
 
-export const SoundButton: React.FC<SoundButtonProps> = ({ name, displayName, selected, playing }: SoundButtonProps) => {
-	const [currentlyPlaying, setCurrentlyPlaying] = React.useState(playing);
+export const SoundButton: React.FC<SoundButtonProps> = ({ name, displayName }: SoundButtonProps) => {
+	const activeMix = useObservable(mostRecentMix, mostRecentMix.initialValue());
+	const activeMixStopped = useObservable(lastMixStopped, lastMixStopped.initialValue());
 
 	const toggleSound = () => {
-		const message: NixMessage = {
-			message: currentlyPlaying ? NixMessageKey.SOUND_STOP_NAMED : NixMessageKey.SOUND_PLAY_NAMED,
-			payload: name,
-		};
+		if (activeMixHas(name) && !activeMixStopped) {
+			browser.runtime
+				.sendMessage({ message: NixMessageKey.SOUND_STOP_NAMED, payload: name } as NixMessage)
+				.then(noop)
+				.catch(noop);
+		} else {
+			browser.runtime
+				.sendMessage({ message: NixMessageKey.SOUND_PLAY_NAMED, payload: name } as NixMessage)
+				.then(noop)
+				.catch(noop);
+		}
+	};
 
-		browser.runtime
-			.sendMessage(message)
-			.then(() => setCurrentlyPlaying(!currentlyPlaying))
-			.catch(console.error);
+	const activeMixHas = (sound: NixSound) => {
+		return !isEmpty(activeMix.find(a => a.sound === sound));
 	};
 
 	return (
 		<button
-			className={cn('px-4 py-2 rounded', {
-				'bg-gray-100 text-black': !currentlyPlaying && !selected,
-				'bg-blue-600 text-white': currentlyPlaying,
-				'bg-green-300 text-black': selected && !currentlyPlaying,
-			})}
 			onClick={toggleSound}
+			className={cn('px-4 py-2 rounded ring-2 text-left font-medium focus:outline-none', {
+				'bg-gray-200 text-gray-700 ring-gray-100': !activeMixHas(name),
+				'bg-blue-900 text-white ring-blue-200 text-blue-50': activeMixHas(name) && !activeMixStopped,
+				'bg-gray-200 ring-blue-800 text-blue-800': activeMixHas(name) && activeMixStopped,
+			})}
 		>
-			{currentlyPlaying ? 'Stop' : 'Play'} {displayName}
+			{displayName}
 		</button>
 	);
 };
