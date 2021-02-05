@@ -28,6 +28,6 @@ If you have questions, problems or ideas, feel free to contact me at <a href="ma
 To build the extension locally for development or testing:
 
 1. Install `node` (and `npm`)
-2. `cd` into the project root directory and `yarn install`
-3. Run `yarn dev:chrome` or `yarn dev:firefox` to build the development version of the extension for Chrome and Firefox (output to the `extensions` directory) with live file reloading.
+2. `cd` into the project root directory and `npm install`
+3. Run `npm run dev:chrome` or `npm run dev:firefox` to build the development version of the extension for Chrome and Firefox (output to the `extensions` directory) with live file reloading.
 4. Add the extension to your browser following normal procedure for loading an unpacked extension
