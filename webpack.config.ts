@@ -68,6 +68,15 @@ export default {
 				],
 			},
 			{
+				test: /\.woff2$/,
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: 'assets/fonts/',
+				},
+				exclude: /node_modules/,
+			},
+			{
 				test: /\.html$/,
 				loader: 'html-loader',
 				exclude: /node_modules/,
@@ -114,7 +123,8 @@ export default {
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: 'src/assets', to: 'assets' },
+				{ from: 'src/assets/icons', to: 'assets/icons' },
+				{ from: 'src/assets/sounds', to: 'assets/sounds' },
 				{ from: 'src/_locales', to: '_locales' },
 				{
 					from: 'src/manifests/default.json',

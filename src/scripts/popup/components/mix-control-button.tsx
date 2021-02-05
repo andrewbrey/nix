@@ -18,7 +18,7 @@ export const MixControlButton: React.FC<React.HTMLAttributes<HTMLButtonElement>>
 		<div className={className}>
 			{canStop ? (
 				<button
-					className="px-3 py-1.5 rounded flex items-center space-x-1 bg-blue-700 text-blue-100 transition-colors duration-150 focus:outline-none focus:bg-blue-500 hover:bg-blue-500"
+					className="px-3 py-1.5 rounded appearance-none text-sm flex items-center space-x-1 bg-blue-700 text-blue-100 transition-colors duration-150 focus:outline-none focus:bg-blue-500 hover:bg-blue-500"
 					onClick={stopActiveMix}
 				>
 					<span className="whitespace-nowrap font-semibold">Pause Mix</span>
@@ -33,7 +33,7 @@ export const MixControlButton: React.FC<React.HTMLAttributes<HTMLButtonElement>>
 			) : null}
 			{canRestart ? (
 				<button
-					className="px-3 py-1.5 rounded flex items-center space-x-1 bg-blue-700 text-blue-100 transition-colors duration-150 focus:outline-none focus:bg-blue-500 hover:bg-blue-500"
+					className="px-3 py-1.5 rounded appearance-none text-sm flex items-center space-x-1 bg-blue-700 text-blue-100 transition-colors duration-150 focus:outline-none focus:bg-blue-500 hover:bg-blue-500"
 					onClick={restartActiveMix}
 				>
 					<span className="whitespace-nowrap font-semibold">Restart Mix</span>
