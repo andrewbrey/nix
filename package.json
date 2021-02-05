@@ -1,6 +1,6 @@
 {
 	"name": "nix",
-	"description": "The simple noise mixer",
+	"description": "The simple noise mixer - create your perfect mixture of sounds to help productivity and focus.",
 	"author": "Andrew Brey <34140052+andrewbrey@users.noreply.github.com>",
 	"version": "1.0.0",
 	"private": false,
