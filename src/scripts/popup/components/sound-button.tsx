@@ -19,7 +19,10 @@ export const SoundButton: React.FC<SoundButtonProps> = ({ name, displayName, sel
 			payload: name,
 		};
 
-		browser.runtime.sendMessage(message).then(() => setCurrentlyPlaying(!currentlyPlaying));
+		browser.runtime
+			.sendMessage(message)
+			.then(() => setCurrentlyPlaying(!currentlyPlaying))
+			.catch(console.error);
 	};
 
 	return (

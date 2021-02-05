@@ -1,20 +1,21 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/@typescript-eslint"
-  ],
-  "env": {
-    "es6": true,
-		"browser": true,
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
+		"prettier/@typescript-eslint"
+	],
+	"env": {
+		"es6": true,
+		// "browser": true,
 		"node": true
-  },
-  "rules": {
-    "curly": "error",
-    "prettier/prettier": "error"
-  },
-  "plugins": ["prettier"]
+	},
+	"rules": {
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"curly": "error",
+		"prettier/prettier": "error"
+	},
+	"plugins": ["prettier"]
 }

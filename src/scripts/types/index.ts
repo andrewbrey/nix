@@ -26,7 +26,6 @@ export type AvailableNixSounds = Record<NixSound, NixSoundConfig>;
 
 export const enum NixMessageKey {
 	SOUND_LIST_ALL = 'sound:list_all',
-	SOUND_LIST_ACTIVE = 'sound:list_active',
 	SOUND_PLAY_NAMED = 'sound:play_named',
 	SOUND_STOP_NAMED = 'sound:stop_named',
 	SOUND_STOP_ALL = 'sound:stop_all',
@@ -43,5 +42,6 @@ export interface NixSelectedSound {
 }
 
 export interface NixState {
+	lastMixStopped: boolean;
 	selectedSounds: NixSelectedSound[];
 }
