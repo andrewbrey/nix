@@ -4,6 +4,8 @@
 [![License: MIT](https://img.shields.io/github/license/andrewbrey/nix.svg?label=License)](https://github.com/andrewbrey/nix/blob/main/LICENSE)
 [![Web store version](https://img.shields.io/chrome-web-store/v/okhnofjkdbkfhkfmlggbnghhfeimfdhm.svg?label=Chrome%20Store%20Version)](https://chrome.google.com/webstore/detail/nix/okhnofjkdbkfhkfmlggbnghhfeimfdhm)
 [![User count](https://img.shields.io/chrome-web-store/users/okhnofjkdbkfhkfmlggbnghhfeimfdhm.svg?label=Chrome%20Users)](https://chrome.google.com/webstore/detail/nix/okhnofjkdbkfhkfmlggbnghhfeimfdhm)
+[![Firefox store version](https://img.shields.io/amo/v/nix-the-simple-noise-mixer.svg?label=Firefox%20Store%20Version)](https://addons.mozilla.org/en-US/firefox/addon/nix-the-simple-noise-mixer)
+[![Firefox User count](https://img.shields.io/amo/users/nix-the-simple-noise-mixer.svg?label=Firefox%20Users)](https://addons.mozilla.org/en-US/firefox/addon/nix-the-simple-noise-mixer)
 
 ---
 
@@ -11,6 +13,9 @@
 
 <a href="https://chrome.google.com/webstore/detail/nix/okhnofjkdbkfhkfmlggbnghhfeimfdhm" target="_blank">
 <img src="./docs/web-store-pill.png" width="200" />
+</a>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/nix-the-simple-noise-mixer" target="_blank">
+<img src="./docs/firefox-store.png" width="200" />
 </a>
 
 **Screenshots**
