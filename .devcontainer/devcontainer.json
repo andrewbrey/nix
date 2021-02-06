@@ -12,12 +12,15 @@
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"meganrogge.template-string-converter",
-		"gruntfuggly.todo-tree"
+		"gruntfuggly.todo-tree",
+		"oouo-diogo-perdigao.docthis",
+		"riazxrazor.html-to-jsx",
+		"planbcoding.vscode-react-refactor"
 	],
 	"settings": {
 		/********************
-     * Language Specific *
-     ********************/
+		 * Language Specific *
+		 ********************/
 		"[html]": {
 			"editor.defaultFormatter": "esbenp.prettier-vscode"
 		},
@@ -38,18 +41,13 @@
 			"editor.formatOnSave": true
 		},
 		/*************
-     * Extensions *
-     *************/
+		 * Extensions *
+		 *************/
 		"color-highlight.markRuler": false,
 		"color-highlight.markerType": "background",
 		"eslint.run": "onSave",
 		"todo-tree.tree.autoRefresh": true,
-		"todo-tree.general.tags": [
-			"TODO",
-			"FIXME",
-			"IDEA",
-			"COMMENT"
-		],
+		"todo-tree.general.tags": ["TODO", "FIXME", "IDEA", "COMMENT"],
 		"todo-tree.highlights.defaultHighlight": {
 			"background": "#DBDD40",
 			"iconColour": "#DBDD40",
@@ -76,11 +74,7 @@
 				"type": "text-and-comment"
 			}
 		},
-		"todo-tree.filtering.excludeGlobs": [
-			"**/node_modules/**/*",
-			"**/extensions/**",
-			"**/*.md"
-		],
+		"todo-tree.filtering.excludeGlobs": ["**/node_modules/**/*", "**/extensions/**", "**/*.md"],
 		"todo-tree.tree.expanded": true,
 		"todo-tree.tree.flat": true,
 		"todo-tree.tree.grouped": false,
@@ -90,14 +84,14 @@
 		"tslint.configFile": "tslint.json",
 		"typescript.updateImportsOnFileMove.enabled": "always",
 		/**************
-     * Application *
-     **************/
+		 * Application *
+		 **************/
 		"editor.codeActionsOnSave": {
 			"source.fixAll.tslint": true
 		},
 		"search.exclude": {
 			"**/node_modules/**/*": true,
-			"**/extensions/**/*": true,
+			"**/extensions/**/*": true
 		}
 	}
 }

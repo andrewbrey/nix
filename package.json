@@ -2,7 +2,7 @@
 	"name": "nix",
 	"description": "The simple noise mixer - create your perfect mixture of sounds to help productivity and focus.",
 	"author": "Andrew Brey <34140052+andrewbrey@users.noreply.github.com>",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"private": false,
 	"repository": {
 		"type": "git",
