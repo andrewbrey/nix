@@ -9,4 +9,5 @@
 
 ### 1.x.x
 
+- **_1.0.1_** - Added icons for each sound
 - **_1.0.0_** - An extension is born :)
