@@ -2,17 +2,22 @@
 
 [![GitHub release](https://img.shields.io/github/package-json/v/andrewbrey/nix.svg?label=Package%20Version)](https://github.com/andrewbrey/nix/releases)
 [![License: MIT](https://img.shields.io/github/license/andrewbrey/nix.svg?label=License)](https://github.com/andrewbrey/nix/blob/main/LICENSE)
+[![Web store version](https://img.shields.io/chrome-web-store/v/okhnofjkdbkfhkfmlggbnghhfeimfdhm.svg?label=Chrome%20Store%20Version)](https://chrome.google.com/webstore/detail/nix/okhnofjkdbkfhkfmlggbnghhfeimfdhm)
+[![User count](https://img.shields.io/chrome-web-store/users/okhnofjkdbkfhkfmlggbnghhfeimfdhm.svg?label=Chrome%20Users)](https://chrome.google.com/webstore/detail/nix/okhnofjkdbkfhkfmlggbnghhfeimfdhm)
 
 ---
 
 `Nix` is the simple noise mixer browser extension - create your perfect mixture of sounds to help productivity and focus. It's simple, intuitive, and clean so that getting into a flow state is just a click away.
 
+<a href="https://chrome.google.com/webstore/detail/nix/okhnofjkdbkfhkfmlggbnghhfeimfdhm" target="_blank">
+<img src="./docs/web-store-pill.png" width="200" />
+</a>
+
 **Screenshots**
 
-Nix while playing          | Nix while paused
-:-------------------------:|:-------------------------:
-![Nix while playing](./docs/nix-playing.png) | ![Nix while paused](./docs/nix-paused.png)
-
+|              Nix while playing               |              Nix while paused              |
+| :------------------------------------------: | :----------------------------------------: |
+| ![Nix while playing](./docs/nix-playing.png) | ![Nix while paused](./docs/nix-paused.png) |
 
 This extension is open source and licensed under the MIT license, so you can feel free to check out the source code at the extension home page or even contribute to make it better!
 
