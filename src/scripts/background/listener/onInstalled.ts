@@ -5,5 +5,8 @@ import { DEFAULT_NIX_STATE, noop } from '../../util/shared';
 export async function onInstalled() {
 	const defaultNixState: NixState = { ...DEFAULT_NIX_STATE };
 
-	await browser.storage.local.set(defaultNixState).then(noop).catch(console.error);
+	await browser.storage.local
+		.set(await browser.storage.local.get(defaultNixState))
+		.then(noop)
+		.catch(console.error);
 }

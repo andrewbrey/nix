@@ -8,7 +8,7 @@ export const Popup: React.FC = () => {
 	const availableSounds = useObservable(allSounds, allSounds.initialValue());
 
 	return (
-		<div className="w-80 bg-gray-100">
+		<div className="min-w-80 bg-gray-100">
 			<div className="px-4 py-3 text-white bg-gradient-to-br from-blue-900 to-blue-800 border-b-4 border-blue-200">
 				<div className="flex justify-between items-center">
 					<h1 className="font-bold italic text-4xl">Nix</h1>

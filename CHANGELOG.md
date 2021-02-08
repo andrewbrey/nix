@@ -9,5 +9,6 @@
 
 ### 1.x.x
 
+- **_1.0.2_** - Ensure existing mix is not lost when the extension updates
 - **_1.0.1_** - Added icons for each sound
 - **_1.0.0_** - An extension is born :)
