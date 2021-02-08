@@ -21,7 +21,7 @@ jobs:
       - name: install
         run: yarn install
       - name: build
-        run: yarn build
+        run: 'yarn releaseprep:${{ matrix.command }}'
       - name: release
         run: 'yarn release:${{ matrix.command }}'
         env:
@@ -29,5 +29,6 @@ jobs:
           CLIENT_ID: '${{ secrets.CLIENT_ID }}'
           CLIENT_SECRET: '${{ secrets.CLIENT_SECRET }}'
           REFRESH_TOKEN: '${{ secrets.REFRESH_TOKEN }}'
+          WEB_EXT_ID: '${{ secrets.WEB_EXT_ID }}'
           WEB_EXT_API_KEY: '${{ secrets.WEB_EXT_API_KEY }}'
           WEB_EXT_API_SECRET: '${{ secrets.WEB_EXT_API_SECRET }}'

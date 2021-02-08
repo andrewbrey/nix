@@ -21,12 +21,12 @@
 		"build:firefox": "NODE_ENV=production TARGET=firefox webpack --config webpack.config.ts",
 		"audit:chrome": "web-ext lint --source-dir ./extensions/chrome/",
 		"audit:firefox": "web-ext lint --source-dir ./extensions/firefox/",
-		"package:chrome": "web-ext build --source-dir ./extensions/chrome/ -a ./extensions/chrome/",
+		"package:chrome": "web-ext build --source-dir ./extensions/chrome/ -a ./extensions/chrome/ && rename extensions/chrome/*.zip nix.zip",
 		"package:firefox": "web-ext build --source-dir ./extensions/firefox/ -a ./extensions/firefox/",
 		"releaseprep:chrome": "run-s clean:chrome build:chrome audit:chrome package:chrome",
 		"releaseprep:firefox": "run-s clean:firefox build:firefox audit:firefox package:firefox",
-		"release:chrome": "cd extensions/chrome/ && webstore upload --auto-publish",
-		"release:firefox": "cd extensions/firefox/ && web-ext-submit"
+		"release:chrome": "dotenv -- webstore upload --auto-publish --source extensions/chrome/nix.zip",
+		"release:firefox": "dotenv -- web-ext-submit --source-dir ./extensions/firefox/ -a ./extensions/firefox/ -v"
 	},
 	"dependencies": {
 		"@activejs/core": "0.2.3",
@@ -59,6 +59,7 @@
 		"chrome-webstore-upload-cli": "1.2.1",
 		"copy-webpack-plugin": "7.0.0",
 		"css-loader": "5.0.1",
+		"dotenv-cli": "4.0.0",
 		"eslint": "7.19.0",
 		"eslint-config-prettier": "7.2.0",
 		"eslint-plugin-prettier": "3.3.1",
@@ -75,6 +76,7 @@
 		"postcss-loader": "5.0.0",
 		"prettier": "2.2.1",
 		"react-hot-loader": "4.13.0",
+		"rename-cli": "6.2.1",
 		"rimraf": "3.0.2",
 		"source-map-loader": "2.0.0",
 		"style-loader": "2.0.0",

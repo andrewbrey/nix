@@ -7,3 +7,5 @@ extensions/*
 build/
 
 .out/
+
+*.env
